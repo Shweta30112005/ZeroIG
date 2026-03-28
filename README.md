@@ -60,28 +60,29 @@ We improved the baseline ZERO-IG model by:
 
 ##  Project Structure
 
+```
 ZERO-IG/
 │
 ├── Figs/
-│ ├── Dataset.png
-│ └── Fig3.png
+│   ├── Dataset.png
+│   └── Fig3.png
 │
-├── data/ # Dataset folder
+├── data/                # Dataset folder
 │
-├── weights/ # Pretrained / trained models
-│ ├── LOL.pt
-│ ├── LSRW-Huawei.pt
-│ └── LSRW-Nikon.pt
+├── weights/             # Pretrained / trained models
+│   ├── LOL.pt
+│   ├── LSRW-Huawei.pt
+│   └── LSRW-Nikon.pt
 │
-├── model.py # Model architecture
-├── loss.py # Loss functions
-├── train.py # Training script
-├── test.py # Testing script
-├── multi_read_data.py # Data loading
-├── utils.py # Utility functions
+├── model.py             # Model architecture
+├── loss.py              # Loss functions
+├── train.py             # Training script
+├── test.py              # Testing script
+├── multi_read_data.py   # Data loading
+├── utils.py             # Utility functions
 │
 └── README.md
-
+```
 ##  Requirements
 
 - Python 3.7  
@@ -100,4 +101,16 @@ ZERO-IG/
 
 ```bash
 python train.py
+```
+###  2. Testing
 
+- Place test images in the `data/` folder  
+- Select pretrained model from `weights/`  
+
+Run:
+
+```bash
+python test.py
+```
+
+- Output images will be saved in the ```results/``` folder
