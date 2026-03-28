@@ -7,43 +7,97 @@ By Yiqi Shi, Duo Liu, LiguoZhang,Ye Tian, Xuezhi Xia, Xiaojing Fu
 
 #[[Paper]](https://openaccess.thecvf.com/content/CVPR2024/papers/Shi_ZERO-IG_Zero-Shot_Illumination-Guided_Joint_Denoising_and_Adaptive_Enhancement_for_Low-Light_CVPR_2024_paper.pdf)   [[Supplement Material]](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Shi_ZERO-IG_Zero-Shot_Illumination-Guided_CVPR_2024_supplemental.pdf)
 
-# Zero-IG Framework
 
-<img src="Figs/Fig3.png" width="900px"/> 
-<p style="text-align:justify">Note that the provided model in this code are not the model for generating results reported in the paper.
+## Overview
 
-## Model Training Configuration
-* To train a new model, specify the dataset path in "train.py" and execute it. The trained model will be stored in the 'weights' folder, while intermediate visualization outputs will be saved in the 'results' folder.
-* We have provided some model parameters, but we recommend training with a single image for better result.
+Low-light images suffer from poor visibility, noise, and low contrast. Traditional methods are not adaptive, while deep learning methods require large paired datasets.
 
-## Requirements
-* Python 3.7
-* PyTorch 1.13.0
-* CUDA 11.7
-* Torchvision 0.14.1
+This project implements and extends **ZERO-IG**, a **zero-shot framework** that performs **joint denoising and enhancement** using illumination guidance. The model learns directly from a single image without requiring any training dataset.
 
-## Testing
-* Ensure the data is prepared and placed in the designated folder.
-* Select the appropriate model for testing, which could be a model trained by yourself.
-* Execute "test.py" to perform the testing.
+---
 
-## [VILNC Dataset](https://pan.baidu.com/s/1-Uw78IxlVAVY_hqRRS9BGg?pwd=4e5c )
+## Key Idea
 
-The Varied Indoor Luminance & Nightscapes Collection (VILNC Dataset) is a meticulously curated assembly of 500 real-world low-light images, captured with the precision of a Canon EOS 550D camera. This dataset is segmented into two main environments, comprising 460 indoor scenes and 40 outdoor landscapes. Within the indoor category, each scene is represented through a trio of images, each depicting a distinct level of dim luminance, alongside a corresponding reference image captured under normal lighting conditions. For the outdoor scenes, the dataset includes low-light photographs, each paired with its respective normal light reference image, providing a comprehensive resource for analyzing and enhancing low-light imaging techniques.
+Based on **Retinex Theory**:
 
-<img src="Figs/Dataset.png" width="900px"/> 
-<p style="text-align:justify">
+- Image = **Illumination × Reflection**
+- Illumination → brightness (smooth)
+- Reflection → details + noise
 
+ZERO-IG jointly performs:
+-  Denoising  
+-  Enhancement  
 
+---
 
-## Citation
-```bibtex
-@inproceedings{shi2024zero,
-  title={ZERO-IG: Zero-Shot Illumination-Guided Joint Denoising and Adaptive Enhancement for Low-Light Images},
-  author={Shi, Yiqi and Liu, Duo and Zhang, Liguo and Tian, Ye and Xia, Xuezhi and Fu, Xiaojing},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={3015--3024},
-  year={2024}
-}
-```
+##  Architecture
+
+The model consists of three main components:
+
+- **LD-Net (Denoise 1)** → Initial denoising  
+- **IE-Net (Enhancer)** → Illumination estimation  
+- **RD-Net (Denoise 2)** → Final denoising  
+
+---
+
+##  Our Contributions
+
+We improved the baseline ZERO-IG model by:
+
+-  **Residual Blocks**
+  - Better gradient flow  
+  - Improved feature extraction  
+
+- **Channel Attention**
+  - Focus on important features  
+  - Better noise-detail separation  
+
+- **Perceptual Loss**
+  - Preserves textures and edges  
+  - Improves visual quality  
+
+---
+
+##  Project Structure
+
+ZERO-IG/
+│
+├── Figs/
+│ ├── Dataset.png
+│ └── Fig3.png
+│
+├── data/ # Dataset folder
+│
+├── weights/ # Pretrained / trained models
+│ ├── LOL.pt
+│ ├── LSRW-Huawei.pt
+│ └── LSRW-Nikon.pt
+│
+├── model.py # Model architecture
+├── loss.py # Loss functions
+├── train.py # Training script
+├── test.py # Testing script
+├── multi_read_data.py # Data loading
+├── utils.py # Utility functions
+│
+└── README.md
+
+##  Requirements
+
+- Python 3.7  
+- PyTorch 1.13.0  
+- CUDA 11.7  
+- Torchvision 0.14.1  
+
+---
+
+##  How to Run
+
+###  1. Training
+
+- Set dataset path in `train.py`  
+- Run:
+
+```bash
+python train.py
 
