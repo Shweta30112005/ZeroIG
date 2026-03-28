@@ -44,9 +44,9 @@ The model consists of three main components:
 
 We improved the baseline ZERO-IG model by:
 
--  **Residual Blocks**
+- **Residual Blocks**
   - Better gradient flow  
-  - Improved feature extraction  
+  - Improved feature extraction
 
 - **Channel Attention**
   - Focus on important features  
