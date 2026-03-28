@@ -124,8 +124,8 @@ python test.py
 | Baseline ZERO-IG | 16.61 | 0.47 |
 | Improved Model | 18.04 | 0.53 |
 
-✔ Better reconstruction (PSNR)  
-✔ Improved structural & perceptual quality (SSIM)
+- Better reconstruction (PSNR)  
+- Improved structural & perceptual quality (SSIM)
 
 ---
 
@@ -135,8 +135,7 @@ python test.py
 - Reduced noise in dark regions  
 - Balanced illumination without overexposure  
 
-*(Add your result images here)*
-
+![Visual Outputs](Figs/visualization.png)
 ---
 
 
